@@ -32,7 +32,8 @@ Hier ist die Dokumentation der API:
 http://docs.echonest.com.s3-website-us-east-1.amazonaws.com/_static/AnalyzeDocumentation.pdf
 
 
-Für die Release-Benutzung: 
+Für die Release-Benutzung:
+
  java -jar HAG-Sound.jar %SpotifyURI%
 
 
@@ -70,4 +71,5 @@ http://docs.echonest.com.s3-website-us-east-1.amazonaws.com/_static/AnalyzeDocum
 
 
 For release use: 
- java -jar HAG-Sound.jar %SpotifyURI%
+
+java -jar HAG-Sound.jar %SpotifyURI%

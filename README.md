@@ -32,6 +32,9 @@ Hier ist die Dokumentation der API:
 http://docs.echonest.com.s3-website-us-east-1.amazonaws.com/_static/AnalyzeDocumentation.pdf
 
 
+Für die Release-Benutzung: 
+java -jar HAG-Sound.jar
+
 
 // ENGLISH:
 
@@ -63,4 +66,6 @@ This is an OpenSource project. Everybody should work on it. Since I have no idea
 Here is the documentation of the API:
 http://docs.echonest.com.s3-website-us-east-1.amazonaws.com/_static/AnalyzeDocumentation.pdf 
 
-Translated with www.DeepL.com/Translator
+
+For release use: 
+java -jar HAG-Sound.jar

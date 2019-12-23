@@ -18,6 +18,7 @@ public class SoundEngine {
 	SongAnalyse  _SoundAnalyse; 
 	String _ID = "";
 	int _Segments = 0;
+	long _ExternPlayerTimeWithSystemTime = -1; // Wenn es -1 bleibt, dann wird internet Player verwendet
 
 	public SongAnalyse getSoundAnalyse() {
 		return _SoundAnalyse;
@@ -29,7 +30,25 @@ public class SoundEngine {
 
 	public SoundEngine(String aID) {
 		_ID = aID;
-		SongAnalyseWindow.main(null);
+	}
+	
+	public long GetPlayerTime() {
+		if(_ExternPlayerTimeWithSystemTime == -1) {
+			// Zeit vom interen Player entnehmen
+			return _AudioClip.getMicrosecondPosition() / 1000;
+		} else {
+			return System.currentTimeMillis() - _ExternPlayerTimeWithSystemTime;
+		}
+	}
+
+	public SoundEngine(SongInfo aSongInfo) {
+		_ExternPlayerTimeWithSystemTime = (System.currentTimeMillis() - aSongInfo.getExternTimeUntilRequest() - aSongInfo.getCurrentPosition());
+		_ID = aSongInfo.getSongID();
+	}
+
+	
+	public void ShowSongAnalyseWindow() {
+		SongAnalyseWindow.main(null);		
 	}
 	
 	public boolean PlaySound() {
@@ -64,12 +83,20 @@ public class SoundEngine {
 		return true;
 	}
 	
+	private boolean IsPlayerPlay() {
+		if(_ExternPlayerTimeWithSystemTime == 1) {
+			return _AudioClip.isRunning();
+		} else {
+			return true;
+		}
+	}
+
 	public void SeekAudioClipAndExecute() {
 		// guckt im Millisekundentakt nach, was ansteht.
 		System.out.println("Segments: " + _SoundAnalyse.getSongSegments().size());
-		while (_AudioClip.isRunning()) {
-			double lClipInMS = _AudioClip.getMicrosecondPosition() / 1000;
-
+		while (IsPlayerPlay()) {
+			long lClipInMS = GetPlayerTime();
+			//System.out.println((lClipInMS / 1000) + "s");
 			SongTatum lST = getSongTatumInRange(lClipInMS);
 			int lWhileSleep;
 			double lRange;
